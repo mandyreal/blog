@@ -12,8 +12,8 @@ class PostsController < ApplicationController
     
     #create action saves the post in the database
     def create
-        @post = Post.new
-        if @post.save(post_params)
+        @post = Post.new(post_params)
+        if @post.save
             flash[:notice] = "Successfully created post!"
             redirect_to post_path(@post)
         else
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
     def update
         if @post.update_attributes(post_params)
             flash[:update] = "Successfully updated post!"
-            redirect_to post_path(@posts)
+            redirect_to post_path(@post)
         else
             flash[:alert] = "Error updating post!"
             render :edit
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
             flash[:notice] = "Successfully delete post!"
             redirect_to posts_path
         else
-            flas[:alert] = "Error deleting post"
+            flash[:alert] = "Error deleting post"
         end
     end
     
